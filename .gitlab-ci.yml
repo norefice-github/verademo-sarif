@@ -3,7 +3,7 @@
 stages:
     - build
     - security-sca
-    - security-sast
+    - security-sast-policy
 
 variables:
     MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
@@ -32,11 +32,12 @@ sca-scan:
     stage: security-sca
     extends: .sca-scan
     
-sast-pipeline-scan:
-    stage: security-sast
-    extends: .sast-pipeline-scan
-    except:
+sast-policy-scan:
+    stage: security-sast-policy
+    extends: .sast-policy-scan
+    only:
         - master
     variables:
         VERACODE_FILEPATH: 'target/demo-*.war'
+
 
