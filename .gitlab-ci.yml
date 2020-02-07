@@ -20,7 +20,7 @@ cache:
         - .m2/repository
 
 package:
-    stage: package
+    stage: build
     script:
         - 'mvn $MAVEN_CLI_OPTS package'
     artifacts:
