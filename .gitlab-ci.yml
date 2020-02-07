@@ -38,6 +38,6 @@ sast-policy-scan:
     only:
         - master
     variables:
-        VERACODE_FILEPATH: 'target/demo-*.war'
+        VERACODE_FILEPATH: 'target/verademo.war'
 
 
