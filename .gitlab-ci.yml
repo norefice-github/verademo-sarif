@@ -9,8 +9,8 @@ variables:
     MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
     
 include:
-    - remote: 'https://gitlab.com/verademo/security-ci-includes/sast-scan.yml'
-    - remote: 'https://gitlab.com/verademo/security-ci-includes/sca-scan.yml'
+    - remote: 'https://gitlab.com/verademo/security-ci-includes/-/raw/master/sast-scan.yml'
+    - remote: 'https://gitlab.com/verademo/security-ci-includes/-/raw/master/sca-scan.yml'
    
 image: maven:3.6-jdk-11
 
