@@ -19,8 +19,8 @@ development-upload-for-sast:
     only:
         - development
     script:
-        - java -jar $HOME/helpers/VeracodeJavaAPI.jar -vid ${TEAM_ANALYSISCENTER_ID} -vkey ${TEAM_ANALYSISCENTER_KEY}
-          -action UploadAndScan -appname "Verademo" -createprofile false -autoscan true -sandboxname "gitlab-development"
+        - java -jar $HOME/helpers/VeracodeJavaAPI.jar -vid ${VERACODE_API_KEY_ID} -vkey ${VERACODE_API_KEY_SECRET}
+          -action UploadAndScan -appname "${VERACODE_APPLICATION}" -createprofile false -autoscan true -sandboxname "gitlab-development"
           -filepath ./target/verademo.war -version "Job ${CI_JOB_ID} in pipeline ${CI_PIPELINE_ID}"
     allow_failure: true
     
@@ -29,8 +29,8 @@ release-upload-for-sast:
     only:
         - release
     script:
-        - java -jar $HOME/helpers/VeracodeJavaAPI.jar -vid ${TEAM_ANALYSISCENTER_ID} -vkey ${TEAM_ANALYSISCENTER_KEY}
-          -action UploadAndScan -appname "Verademo" -createprofile false -autoscan true -sandboxname "gitlab-release"
+        - java -jar $HOME/helpers/VeracodeJavaAPI.jar -vid ${VERACODE_API_KEY_ID} -vkey ${VERACODE_API_KEY_SECRET}
+          -action UploadAndScan -appname "${VERACODE_APPLICATION}" -createprofile false -autoscan true -sandboxname "gitlab-release"
           -filepath ./target/verademo.war -version "Job ${CI_JOB_ID} in pipeline ${CI_PIPELINE_ID}"
     allow_failure: true
     
@@ -40,7 +40,7 @@ policy-upload-for-sast:
         - schedules
         - master
     script:
-        - java -jar $HOME/helpers/VeracodeJavaAPI.jar -vid ${TEAM_ANALYSISCENTER_ID} -vkey ${TEAM_ANALYSISCENTER_KEY}
-          -action UploadAndScan -appname "Verademo" -createprofile false -autoscan true
+        - java -jar $HOME/helpers/VeracodeJavaAPI.jar -vid ${VERACODE_API_KEY_ID} -vkey ${VERACODE_API_KEY_SECRET}
+          -action UploadAndScan -appname "${VERACODE_APPLICATION}" -createprofile false -autoscan true
           -filepath ./target/verademo.war -version "Job ${CI_JOB_ID} in pipeline ${CI_PIPELINE_ID}"
           -scantimeout 15
