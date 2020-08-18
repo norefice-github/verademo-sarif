@@ -54,4 +54,6 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
       
-    - name: SCA Scan 
+    - name: SCA Scan
+    - continue-on-error: true
+    - run: curl -sSL https://www.sourceclear.com/install | sh 
