@@ -24,6 +24,7 @@ jobs:
       
     - name: SCA SCA
       uses: srcclr scan
+      with:  
         args: ${{secrets.SRCCLR_API_TOKEN}}
       
 
