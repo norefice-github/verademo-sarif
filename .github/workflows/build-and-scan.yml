@@ -56,5 +56,4 @@ jobs:
       
     - name: SCA Scan
       continue-on-error: true
-      uses: wei/curl@master
       run: curl -sSL https://www.sourceclear.com/install | sh 
