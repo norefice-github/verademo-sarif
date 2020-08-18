@@ -55,5 +55,6 @@ jobs:
       run: mvn -B package --file pom.xml
       
     - name: SCA Scan
-    - continue-on-error: true
-    - run: curl -sSL https://www.sourceclear.com/install | sh 
+      continue-on-error: true
+      uses: wei/curl@master
+      run: curl -sSL https://www.sourceclear.com/install | sh 
