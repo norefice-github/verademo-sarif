@@ -19,15 +19,6 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     
-    - name: Veracode Wrapper Download
-      run: wget https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/19.2.5.6/vosp-api-wrappers-java-19.2.5.6.jar -O VeracodeJavaAPI.jar
-
-    - name: SAST Scan
-      run: java -jar VeracodeJavaAPI.jar -vid ${{secrets.VERACODE_API_ID}} -vkey ${{secrets.VERACODE_API_KEY}}
-            -action UploadAndScan -appname "VulnImages-Verademo" -createprofile false
-            -filepath target/verademo.war -version "Commit ${CI_COMMIT_SHA:0:8} - Job $CI_JOB_ID"
-
-      
 
     - name: Download pipeline code
       uses: wei/curl@master
@@ -50,3 +41,14 @@ jobs:
       uses: github/codeql-action/upload-sarif@v1
       with: # Path to SARIF file relative to the root of the repository
         sarif_file: veracode-results.sarif
+        
+        
+    - name: Veracode Wrapper Download
+      run: wget https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/19.2.5.6/vosp-api-wrappers-java-19.2.5.6.jar -O VeracodeJavaAPI.jar
+
+    - name: SAST Scan
+      run: java -jar VeracodeJavaAPI.jar -vid ${{secrets.VERACODE_API_ID}} -vkey ${{secrets.VERACODE_API_KEY}}
+            -action UploadAndScan -appname "VulnImages-Verademo" -createprofile false
+            -filepath target/verademo.war -version "Commit ${CI_COMMIT_SHA:0:8} - Job $CI_JOB_ID"
+
+      
