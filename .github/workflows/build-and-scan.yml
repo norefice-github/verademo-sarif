@@ -20,7 +20,11 @@ jobs:
       run: mvn -B package --file pom.xml
     
     - name: SCA Agent Install
-      run: curl -sSL https://www.sourceclear.com/install | sh   
+      run: curl -sSL https://www.sourceclear.com/install | sh
+    
+    - name: SCA Agent Activation
+      run: srcclr activate
+      
     
     
     - name: Download pipeline code
