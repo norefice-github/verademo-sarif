@@ -23,8 +23,8 @@ jobs:
       run: curl -sSL https://www.sourceclear.com/install | sh
       
     - name: SCA SCA
-        env: ${{secrets.SRCCLR_API_TOKEN}}
-        run: srcclr scan 
+      uses: srcclr scan
+        args: ${{secrets.SRCCLR_API_TOKEN}}
       
 
     - name: Download pipeline code
