@@ -23,6 +23,8 @@ jobs:
       run: curl -sSL https://www.sourceclear.com/install | sh
     
     - name: SCA Agent Activation
+      env: 
+        SCA_TOKEN: ${{ secrets.SCA_TOKEN }} 
       run: srcclr activate
       
     
