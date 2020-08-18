@@ -23,6 +23,7 @@ jobs:
       run: curl -sSL https://www.sourceclear.com/install | sh
     
     - name: SCA Agent Activation
+      env: ${{secrets.SRCCLR_API_TOKEN}}
       run: mvn com.srcclr:srcclr-maven-plugin:scan
       
     
