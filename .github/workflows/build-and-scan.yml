@@ -49,6 +49,6 @@ jobs:
     - name: SAST Scan
       run: java -jar VeracodeJavaAPI.jar -vid ${{secrets.VERACODE_API_ID}} -vkey ${{secrets.VERACODE_API_KEY}}
             -action UploadAndScan -appname "VulnImages-Verademo" -createprofile false
-            -filepath target/verademo.war -version "Commit ${{github.job}}"
+            -filepath target/verademo.war -version "Repo ${{github.repository}} Branch ${{github.ref}}"
 
       
