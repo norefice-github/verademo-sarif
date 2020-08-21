@@ -19,8 +19,6 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
    
-   
-  security:
     - name: Download pipeline code
       uses: wei/curl@master
       with:
