@@ -18,8 +18,9 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-    
-
+   
+   
+  security:
     - name: Download pipeline code
       uses: wei/curl@master
       with:
@@ -43,12 +44,26 @@ jobs:
         sarif_file: veracode-results.sarif
         
         
-    - name: Veracode Wrapper Download
-      run: wget https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/19.2.5.6/vosp-api-wrappers-java-19.2.5.6.jar -O VeracodeJavaAPI.jar
 
-    - name: SAST Scan
-      run: java -jar VeracodeJavaAPI.jar -vid ${{secrets.VERACODE_API_ID}} -vkey ${{secrets.VERACODE_API_KEY}}
-            -action UploadAndScan -appname "VulnImages-Verademo" -createprofile false
-            -filepath target/verademo.war -version "Repo ${{github.repository}} Branch ${{github.ref}}"
+  # This workflow contains a single job called "SAST_Scan"
+  SAST_Scan:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
 
-      
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+    - uses: actions/setup-java@v1
+      with: 
+        java-version: '8'
+    - uses: actions/upload-artifact@v2
+      with:
+        path: binaries_to_upload/*.jar
+    - name: Veracode Upload and Scan Action Step
+      uses: ./ # Uses an action in the root directory
+      id: upload_and_scan
+      with:
+        filepath: 'binaries_to_upload/'
+        vid: '${{ secrets.VERACODE_ID }}'
+        vkey: '${{ secrets.VERACODE_KEY }}'
