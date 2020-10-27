@@ -30,12 +30,14 @@ jobs:
       run: java -Dpipeline.debug=true -jar pipeline-scan.jar --veracode_api_id "${{secrets.VERACODE_API_ID}}" --veracode_api_key "${{secrets.VERACODE_API_KEY}}" --file "target/verademo.war" --fail_on_severity="Very High, High,Medium" -jo true
     - name: Convert pipeline scan output to SARIF format
       id: convert
-      uses: Lerer/veracode-pipeline-scan-results-to-sarif@v1.0.5
+      uses: Veracode/veracode-pipeline-scan-results-to-sarif@v0.1.2
       with:
         pipeline-results-json: results.json
         output-results-sarif: veracode-results.sarif
         source-base-path-1: "^com/veracode:src/main/java/com/veracode"
         source-base-path-2: "^WEB-INF:src/main/webapp/WEB-INF"
+        finding-rule-level: "3:1:0"
+
     - name: upload sarif file to repository
       uses: github/codeql-action/upload-sarif@v1
       with: # Path to SARIF file relative to the root of the repository
