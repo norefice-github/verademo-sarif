@@ -18,23 +18,31 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+    
+    
     - name: Download pipeline code
       uses: wei/curl@master
       with:
         args: -O https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
+    
+    
     - name: Unzip the Pipeline Scanner
       run: unzip pipeline-scan-LATEST.zip
+    
+    
     - name: Run Pipeline Scanner
       continue-on-error: true
       run: java -Dpipeline.debug=true -jar pipeline-scan.jar --veracode_api_id "${{secrets.VERACODE_API_ID}}" --veracode_api_key "${{secrets.VERACODE_API_KEY}}" --file "target/verademo.war" --fail_on_severity="Very High, High,Medium" -jo true
+    
+    
     - name: Convert pipeline scan output to SARIF format
       id: convert
       uses: Veracode/veracode-pipeline-scan-results-to-sarif@v0.1.2
       with:
         pipeline-results-json: results.json
         output-results-sarif: veracode-results.sarif
-        source-base-path-1: "^com/veracode:src/main/java/com/veracode"
-        source-base-path-2: "^WEB-INF:src/main/webapp/WEB-INF"
+        pipeline-results-json: "^com/veracode:src/main/java/com/veracode"
+        output-results-sarif: "^WEB-INF:src/main/webapp/WEB-INF"
         finding-rule-level: "3:1:0"
 
     - name: upload sarif file to repository
