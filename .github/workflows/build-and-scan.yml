@@ -41,8 +41,6 @@ jobs:
       with:
         pipeline-results-json: results.json
         output-results-sarif: veracode-results.sarif
-        pipeline-results-json: "^com/veracode:src/main/java/com/veracode"
-        output-results-sarif: "^WEB-INF:src/main/webapp/WEB-INF"
         finding-rule-level: "3:1:0"
 
     - name: upload sarif file to repository
