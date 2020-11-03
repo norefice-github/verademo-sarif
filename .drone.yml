@@ -9,6 +9,7 @@ steps:
   - mvn -B package --file pom.xml
    
 - name: Download pipeline code
+  image: maven:3-jdk-10
   commands: 
   - curl -O https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
   - unzip pipeline-scan-LATEST.zip pipeline-scan.jar
