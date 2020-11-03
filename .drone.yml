@@ -1,4 +1,6 @@
-name: Drone CI Pipeline Scan
+kind: pipeline
+type: docker
+name: DroneCI Pipeline build
 
 on:  [pull_request, push]
 
