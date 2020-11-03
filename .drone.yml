@@ -1,6 +1,6 @@
 kind: pipeline
 type: docker
-name: DroneCI
+name: default
 
 on:  [pull_request, push]
 
