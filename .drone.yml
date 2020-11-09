@@ -7,20 +7,20 @@ steps:
   image: maven:3-jdk-10
   commands:
   - mvn -B package --file pom.xml
-   
+ 
+- name: SCA Scan
+  image: maven:3-jdk-10
+  commands:
+  - curl -sSL https://download.sourceclear.com/ci.sh | sh -s - scan $SRCCLR_API_TOKEN
+  environment:
+    agentAuthorization:
+      from_secret: SRCCLR_API_TOKEN 
+      
 - name: Download pipeline code
   image: maven:3-jdk-10
   commands: 
   - curl -O https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
   - unzip pipeline-scan-LATEST.zip pipeline-scan.jar
-
-- name: SCA Scan
-  image: maven:3-jdk-10
-  commands:
-  - curl -sSL https://download.sourceclear.com/ci.sh | sh -s - scan $agentAuthorization
-  environment:
-    agentAuthorization:
-      from_secret: SRCCLR_API_TOKEN 
       
 - name: Pipeline Scan
   image: maven:3-jdk-10
