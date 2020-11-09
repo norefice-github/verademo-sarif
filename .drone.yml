@@ -17,7 +17,7 @@ steps:
 - name: Pipeline Scan
   image: maven:3-jdk-10
   commands:
-  - java -jar pipeline-scan.jar --veracode_api_id $VERACODE_API_ID --veracode_api_key $VERACODE_API_SECRET --file "target/verademo.war"  --fail_on_severity="Very High, High" --fail_on_cwe="80" --timeout "${CI_TIMEOUT}" --project_name "${DRONE_REPO_NAME}" --project_url "${DRONE_REPO_LINK}" --project_ref "${DRONE_COMMIT_REF}"
+  - java -jar pipeline-scan.jar --veracode_api_id $VERACODE_API_ID --veracode_api_key $VERACODE_API_SECRET --file "target/verademo.war"  --fail_on_severity="Very High, High" --fail_on_cwe="80" --timeout "${CI_TIMEOUT}" --project_name "${DRONE_REPO_NAME}" --project_url "${DRONE_REPO_LINK}" --project_ref "${DRONE_COMMIT_REF}" --issue_details true
   environment:
       VERACODE_API_ID:
         from_secret: VERACODE_API_ID
