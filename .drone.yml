@@ -20,7 +20,7 @@ steps:
   - curl -sSL https://download.sourceclear.com/ci.sh | sh -s - scan $agentAuthorization
   environment:
     agentAuthorization:
-      from_secret: agentAuthorization 
+      from_secret: SRCCLR_API_TOKEN 
       
 - name: Pipeline Scan
   image: maven:3-jdk-10
