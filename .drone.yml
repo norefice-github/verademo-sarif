@@ -17,4 +17,4 @@ steps:
 - name: Pipeline Scan
   image: maven:3-jdk-10
   commands:
-  - java -jar pipeline-scan.jar --veracode_api_id ee3ae20973760304b2727416b1230b6f --veracode_api_key 85f8a751a51c30c27aefcc2b07501f86a5587ff5b63ff7bdbb049285aca6a7352bf1c9b9a8d73e7ba6d90332d6379e805bda527d225fba77bcfa8fb7de2861fc --file "target/verademo.war"
+  - java -jar pipeline-scan.jar --veracode_api_id ${VERACODE_API_ID} --veracode_api_key ${VERACODE_API_KEY} --file "target/verademo.war"
