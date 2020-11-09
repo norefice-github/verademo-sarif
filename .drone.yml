@@ -17,7 +17,7 @@ steps:
 - name: SCA Scan
   image: maven:3-jdk-10
   commands:
-  - curl -sSL https://download.sourceclear.com/ci.sh | sh -s scan -agentAuthorization $agentAuthorization
+  - curl -sSL https://download.sourceclear.com/ci.sh | sh -s - scan $agentAuthorization
   environment:
     agentAuthorization:
       from_secret: agentAuthorization 
