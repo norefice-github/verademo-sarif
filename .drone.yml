@@ -11,7 +11,8 @@ steps:
 - name: SCA Scan
   image: maven:3-jdk-10
   commands:
-  - curl -sSL https://download.sourceclear.com/ci.sh | srcclr --version
+  - curl -sSL https://download.sourceclear.com/ci.sh 
+  - srcclr --version
   environment:
     SRCCLR_API_TOKEN:
       from_secret: SRCCLR_API_TOKEN 
