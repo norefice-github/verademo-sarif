@@ -23,3 +23,11 @@ steps:
         from_secret: VERACODE_API_ID
       VERACODE_API_SECRET:
         from_secret: VERACODE_API_SECRET
+- name: SCA Scan
+  image: maven:3-jdk-10
+  commands:
+  - curl -sSL https://download.sourceclear.com/ci.sh | sh -s scan --agentAuthorization $agentAuthorization
+  environment:
+    agentAuthorization:
+      from_secret: agentAuthorization
+    
