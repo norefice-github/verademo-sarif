@@ -19,7 +19,7 @@ steps:
 - name: SAST Scan Upload
   image: maven:3-jdk-10
   commands:
-  - java -jar VeracodeJavaAPI.jar -vid $VERACODE_API_ID -vkey $VERACODE_API_SECRET -action summaryreport -buildid 681495 -file target/verademo.war
+  - java -jar VeracodeJavaAPI.jar -vid $VERACODE_API_ID -vkey $VERACODE_API_SECRET -action summaryreport -buildid 681495 -file "target/verademo.war"
    environment:
       VERACODE_API_ID:
         from_secret: VERACODE_API_ID
