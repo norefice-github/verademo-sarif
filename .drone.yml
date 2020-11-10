@@ -7,7 +7,25 @@ steps:
   image: maven:3-jdk-10
   commands:
   - mvn -B package --file pom.xml
- 
+
+
+- name: Download API Wrapper
+  image: maven:3-jdk-10
+  commands:
+  - curl -O https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/20.11.7.2/vosp-api-wrappers-java-20.11.7.2-dist.zip
+  - unzip vosp-api-wrappers-java-20.11.7.2-dist.zip pipeline-scan.jar
+
+
+- name: SAST Scan Upload
+  image: maven:3-jdk-10
+  commands:
+  - java -jar VeracodeJavaAPI.jar -vid $VERACODE_API_ID -vkey $VERACODE_API_SECRET -action summaryreport -buildid 681495 -outputfilepath "/Users/norefice/Documents/SA Projects/"
+   environment:
+      VERACODE_API_ID:
+        from_secret: VERACODE_API_ID
+      VERACODE_API_SECRET:
+        from_secret: VERACODE_API_SECRET
+
 - name: SCA Scan
   image: maven:3-jdk-10
   commands:
