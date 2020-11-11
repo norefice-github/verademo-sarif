@@ -19,7 +19,8 @@ steps:
 - name: SAST Scan Upload
   image: maven:3-jdk-10
   commands:
-  - java -jar VeracodeJavaAPI.jar --veracode_api_id $VERACODE_API_ID --veracode_api_key $VERACODE_API_SECRET --file "target/verademo.war # Add in valid arguements
+  - java -jar VeracodeJavaAPI.jar -vid $VERACODE_API_ID -vkey $VERACODE_API_KEY -action UploadAndScan -appname "VulnImages-Verademo" -createprofile false -filepath target/verademo.war -version "Commit ${CI_COMMIT_SHA:0:8} - Job $CI_JOB_ID"
+
   environment:
     VERACODE_API_ID:
       from_secret: VERACODE_API_ID
