@@ -15,23 +15,6 @@ steps:
   environment:
     SRCCLR_API_TOKEN:
       from_secret: SRCCLR_API_TOKEN 
-
-- name: Download API Wrapper
-  image: maven:3-jdk-10
-  commands:
-  - curl -O https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/20.11.7.2/vosp-api-wrappers-java-20.11.7.2-dist.zip
-  - unzip vosp-api-wrappers-java-20.11.7.2-dist.zip VeracodeJavaAPI.jar
-
-
-- name: SAST Scan Upload
-  image: maven:3-jdk-10
-  commands:
-  - java -jar VeracodeJavaAPI.jar -vid $VERACODE_API_ID -vkey $VERACODE_API_SECRET -action UploadAndScan -appname ${DRONE_REPO_NAME} -createprofile false -filepath target/verademo.war -version "Commit ${DRONE_COMMIT_REF} - Job $CI_JOB_ID"
-  environment:
-    VERACODE_API_ID:
-      from_secret: VERACODE_API_ID
-    VERACODE_API_SECRET:
-      from_secret: VERACODE_API_SECRET
       
 - name: Download pipeline code
   image: maven:3-jdk-10
@@ -48,5 +31,23 @@ steps:
         from_secret: VERACODE_API_ID
       VERACODE_API_SECRET:
         from_secret: VERACODE_API_SECRET
+        
+- name: Download API Wrapper
+  image: maven:3-jdk-10
+  commands:
+  - curl -O https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/20.11.7.2/vosp-api-wrappers-java-20.11.7.2-dist.zip
+  - unzip vosp-api-wrappers-java-20.11.7.2-dist.zip VeracodeJavaAPI.jar
+
+
+- name: SAST Scan Upload
+  image: maven:3-jdk-10
+  commands:
+  - java -jar VeracodeJavaAPI.jar -vid $VERACODE_API_ID -vkey $VERACODE_API_SECRET -action UploadAndScan -appname ${DRONE_REPO_NAME} -createprofile false -filepath target/verademo.war -version Commit ${DRONE_COMMIT_REF}
+  environment:
+    VERACODE_API_ID:
+      from_secret: VERACODE_API_ID
+    VERACODE_API_SECRET:
+      from_secret: VERACODE_API_SECRET
+      
 
     
