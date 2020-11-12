@@ -8,6 +8,13 @@ steps:
   commands:
   - mvn -B package --file pom.xml
 
+- name: SCA Scan
+  image: maven:3-jdk-10
+  commands:
+  - curl -sSL https://download.sourceclear.com/ci.sh | sh -s scan
+  environment:
+    SRCCLR_API_TOKEN:
+      from_secret: SRCCLR_API_TOKEN 
 
 - name: Download API Wrapper
   image: maven:3-jdk-10
@@ -25,15 +32,6 @@ steps:
       from_secret: VERACODE_API_ID
     VERACODE_API_SECRET:
       from_secret: VERACODE_API_SECRET
-
-- name: SCA Scan
-  image: maven:3-jdk-10
-  commands:
-  - curl -sSL https://download.sourceclear.com/ci.sh 
-  - srcclr --version
-  environment:
-    SRCCLR_API_TOKEN:
-      from_secret: SRCCLR_API_TOKEN 
       
 - name: Download pipeline code
   image: maven:3-jdk-10
